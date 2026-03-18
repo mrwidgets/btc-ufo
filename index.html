@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  BTC UAP Fleet — Live Cycle Indicators
+  BTC Cycle Bird Flock — Live Indicators
   © Mr. Widgets™ 2025-2026. All rights reserved.
   
   This work is licensed under the Creative Commons
@@ -14,28 +14,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BTC UAP Fleet — Live Cycle Indicators</title>
+<title>BTC Cycle Bird Flock — Live Indicators</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Silkscreen:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
 body{background:#111;display:flex;justify-content:center;align-items:stretch;height:100vh;font-family:'Inter',system-ui,sans-serif;overflow:hidden}
 #scene,#scene *:not(.title-font){font-family:'Inter',system-ui,sans-serif!important}
-.title-font{font-family:'Silkscreen',monospace!important}
-@keyframes flyRight{from{transform:translateX(-200px)}to{transform:translateX(calc(100vw + 200px))}}
+@keyframes flyRight{from{transform:translateX(-50px)}to{transform:translateX(calc(100vw + 50px))}}
 @keyframes bob1{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}
 @keyframes bob2{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes bob3{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 @keyframes bob4{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @keyframes bob5{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes bob6{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes flapA{0%,100%{transform:rotate(-8deg) scaleY(1)}50%{transform:rotate(12deg) scaleY(-0.55)}}
 @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(12px)}}
 @keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.8}}
-@keyframes lightPulse{0%,100%{opacity:.25}50%{opacity:1}}
-@keyframes corePulse{0%,100%{opacity:.4}50%{opacity:1}}
-@keyframes glint{0%,100%{opacity:0}15%{opacity:.9}30%{opacity:0}}
-@keyframes tendril{0%,100%{transform:translateY(0) scaleX(1)}50%{transform:translateY(2px) scaleX(.9)}}
+@keyframes blinker{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(0.05)}}
+@keyframes dangle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(5deg)}75%{transform:rotate(-5deg)}}
 @keyframes pulseGlow{0%,100%{filter:drop-shadow(0 0 0px transparent)}50%{filter:drop-shadow(0 0 8px var(--glow-color))}}
 #loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:rgba(255,255,255,.6);font:13px 'Inter',sans-serif;z-index:50;text-align:center}
 #loading .dot{display:inline-block;animation:twinkle 1s ease-in-out infinite}
@@ -54,23 +51,21 @@ body{background:#111;display:flex;justify-content:center;align-items:stretch;hei
 <div id="birds-layer" style="position:absolute;inset:0;z-index:10"></div>
 <div id="loading"><span class="dot">.</span><span class="dot" style="animation-delay:.2s">.</span><span class="dot" style="animation-delay:.4s">.</span><br>Fetching BTC data</div>
 <div style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:10px;z-index:20">
+<span style="font:11px 'Inter',sans-serif;color:rgba(255,255,255,.55);letter-spacing:.6px">HIGH = SELL ZONE</span>
 <button class="top-btn" style="position:static" onclick="showAbout()">About</button>
+<button class="top-btn" style="position:static" onclick="shareScreenshot(this)">Share</button>
+<button class="top-btn" id="sound-btn" style="position:static" onclick="toggleSound()">Sound: off</button>
 <button class="top-btn tip-btn" style="position:static" onclick="showTip()">&#9889; Tip</button>
 </div>
-<div style="position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:10px;z-index:20">
-<button class="top-btn" style="position:static" onclick="showShareModal()">Share</button>
-<button class="top-btn" id="sound-btn" style="position:static" onclick="toggleSound()">Sound: off</button>
-</div>
 <div id="about-modal" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:40;background:rgba(0,0,0,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px 28px;text-align:center;font-family:'Inter',sans-serif;max-width:380px">
-<div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:10px">BTC UAP</div>
-<div style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px">Fetches live BTC price data, calculates 7 cycle indicators client-side, and represents each one as a different craft type flying at an altitude matching its signal strength.<br><br>The sky changes with your local time, data refreshes every 5 minutes. Enjoy watching the fleet!</div>
-<div style="font-size:9px;color:rgba(255,255,255,.25);margin-bottom:8px">© Mr. Widgets™ — Price-derived approximations, not financial advice</div>
-<div style="font-size:10px;color:rgba(255,255,255,.35);margin-bottom:12px">✉<br>mrwidgets@proton.me</div>
+<div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:10px">BTC Birds</div>
+<div style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px">Fetches live BTC price data, calculates 7 cycle indicators client-side, and represents each one as a different species of bird flying at an altitude matching its signal strength.<br><br>The sky changes with your local time, data refreshes every 5 minutes. Enjoy watching the flock!</div>
+<div style="font-size:9px;color:rgba(255,255,255,.25);margin-bottom:12px">© Mr. Widgets™ — Price-derived approximations, not financial advice</div>
 <button class="top-btn" style="position:static" onclick="closeAbout()">Close</button>
 </div>
 <div id="tip-modal" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:40;background:rgba(0,0,0,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px 28px;text-align:center;font-family:'Inter',sans-serif;max-width:320px">
 <div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:8px">&#9889; Tip via Lightning</div>
-<div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:14px">If you find this useful, a tip via Bitcoin Lightning Network will help support a real human to continue building fun, free tools for the community</div>
+<div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:14px">If you find this useful, send a tip via Bitcoin Lightning Network</div>
 <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:10px 14px;font-size:12px;color:#F0C060;word-break:break-all;letter-spacing:.3px;margin-bottom:12px;border:1px solid rgba(255,255,255,.06)">innerserver135@walletofsatoshi</div>
 <div style="display:flex;gap:8px;justify-content:center">
 <button class="top-btn" style="position:static" onclick="copyTipAddress(this)">Copy address</button>
@@ -78,24 +73,10 @@ body{background:#111;display:flex;justify-content:center;align-items:stretch;hei
 </div>
 <div style="font-size:9px;color:rgba(255,255,255,.25);margin-top:10px">Open any Lightning wallet and send to the address above</div>
 </div>
-<div id="share-modal" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:40;background:rgba(0,0,0,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px 28px;text-align:center;font-family:'Inter',sans-serif;max-width:380px;min-width:300px">
-<div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:14px">Share BTC UAP</div>
-<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
-<button class="top-btn" style="position:static;width:100%;padding:10px" onclick="shareAsScreenshot()">📸 Save Screenshot</button>
-<button class="top-btn" style="position:static;width:100%;padding:10px" onclick="shareLink(this)">🔗 Copy Link</button>
-<button class="top-btn" style="position:static;width:100%;padding:10px" onclick="shareEmbed(this)">📋 Copy Embed Code</button>
-</div>
-<div id="embed-preview" style="display:none;background:rgba(255,255,255,.06);border-radius:8px;padding:10px;margin-bottom:12px;text-align:left">
-<div style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:6px">Embed code:</div>
-<code id="embed-code" style="font-size:10px;color:#F0C060;word-break:break-all;line-height:1.5;display:block"></code>
-</div>
-<button class="top-btn" style="position:static" onclick="closeShareModal()">Close</button>
-</div>
-<div id="high-label" style="position:absolute;left:14px;font:11px 'Inter',sans-serif;color:rgba(255,255,255,.55);z-index:20;letter-spacing:.6px">HIGH = SELL ZONE</div>
 <div id="low-label" style="position:absolute;left:14px;font:11px 'Inter',sans-serif;color:rgba(255,255,255,.55);z-index:20;letter-spacing:.6px">LOW = BUY ZONE</div>
 <div id="desc-label" style="position:absolute;left:0;right:0;text-align:center;font:9px 'Inter',sans-serif;color:rgba(255,255,255,.18);z-index:20;pointer-events:none;line-height:1.5">© Mr. Widgets™ — Price-derived approximations, not financial advice</div>
-<div style="position:absolute;top:44px;left:0;right:0;display:flex;flex-direction:column;align-items:center;z-index:20;pointer-events:none">
-<div class="title-font" style="font:700 22px 'Silkscreen',cursive;color:rgba(255,255,255,.5);letter-spacing:4px;margin-bottom:10px">BTC UAP</div>
+<div style="position:absolute;top:14px;left:0;right:0;display:flex;flex-direction:column;align-items:center;z-index:20;pointer-events:none">
+<div class="title-font" style="font:700 22px 'Silkscreen',cursive;color:rgba(255,255,255,.5);letter-spacing:4px;margin-bottom:10px">BTC BIRDS</div>
 <div id="clk" style="font:14px 'Inter',sans-serif;color:rgba(255,255,255,.6);letter-spacing:.5px"></div>
 <div id="status" style="font:12px 'Inter',sans-serif;color:rgba(255,255,255,.4);margin-top:2px"></div>
 <div id="aggregate" style="font:11px 'Inter',sans-serif;color:rgba(255,255,255,.35);margin-top:3px"></div>
@@ -131,58 +112,62 @@ function startAmbient(){
   if(ambientNodes)return;
   const ctx=audioCtx,t=ctx.currentTime;
   const master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
-  master.gain.linearRampToValueAtTime(0.03,t+5);
+  master.gain.linearRampToValueAtTime(0.04,t+3);
 
-  // Deep warm pad: low sine waves forming a gentle Cmaj9 — very slow drift
-  const padNotes=[130.8,164.6,196,293.7,329.6]; // C3, E3, G3, D4, E4
+  // Warm pad: layered detuned sine waves forming a soft chord
+  const padNotes=[174.6,220,261.6,329.6]; // F3, A3, C4, E4 — Fmaj7
   const padOscs=padNotes.map((f,i)=>{
     const o=ctx.createOscillator();
     o.type='sine';o.frequency.value=f;
+    // Slow gentle vibrato
     const lfo=ctx.createOscillator();lfo.type='sine';
-    lfo.frequency.value=0.04+i*0.015;
-    const lfoG=ctx.createGain();lfoG.gain.value=0.3+i*0.1;
+    lfo.frequency.value=0.15+i*0.05;
+    const lfoG=ctx.createGain();lfoG.gain.value=0.8+i*0.3;
     lfo.connect(lfoG);lfoG.connect(o.frequency);lfo.start(t);
-    const g=ctx.createGain();g.gain.value=0.008;
+    const g=ctx.createGain();g.gain.value=0.012;
     o.connect(g);g.connect(master);o.start(t);
     return{o,lfo,g};
   });
 
-  // Slow deep breath: very low filtered noise
+  // Breath: filtered noise that swells and fades like wind
   const noise=ctx.createBufferSource();
-  const nBuf=ctx.createBuffer(1,ctx.sampleRate*12,ctx.sampleRate);
+  const nBuf=ctx.createBuffer(1,ctx.sampleRate*8,ctx.sampleRate);
   const nD=nBuf.getChannelData(0);
-  for(let i=0;i<nD.length;i++)nD[i]=(Math.random()*2-1)*0.3;
+  for(let i=0;i<nD.length;i++)nD[i]=(Math.random()*2-1)*0.5;
   noise.buffer=nBuf;noise.loop=true;
-  const nFilt=ctx.createBiquadFilter();nFilt.type='lowpass';nFilt.frequency.value=250;nFilt.Q.value=0.3;
-  const nGain=ctx.createGain();nGain.gain.value=0.005;
+  const nFilt=ctx.createBiquadFilter();nFilt.type='bandpass';nFilt.frequency.value=400;nFilt.Q.value=0.5;
+  const nGain=ctx.createGain();nGain.gain.value=0.008;
   noise.connect(nFilt);nFilt.connect(nGain);nGain.connect(master);
   noise.start(t);
-  const breathLfo=ctx.createOscillator();breathLfo.type='sine';breathLfo.frequency.value=0.02;
-  const breathDepth=ctx.createGain();breathDepth.gain.value=100;
+  // Slowly sweep the filter
+  const breathLfo=ctx.createOscillator();breathLfo.type='sine';breathLfo.frequency.value=0.04;
+  const breathDepth=ctx.createGain();breathDepth.gain.value=200;
   breathLfo.connect(breathDepth);breathDepth.connect(nFilt.frequency);breathLfo.start(t);
-  const breathVol=ctx.createOscillator();breathVol.type='sine';breathVol.frequency.value=0.035;
-  const breathVolG=ctx.createGain();breathVolG.gain.value=0.003;
+  // Volume swell
+  const breathVol=ctx.createOscillator();breathVol.type='sine';breathVol.frequency.value=0.07;
+  const breathVolG=ctx.createGain();breathVolG.gain.value=0.004;
   breathVol.connect(breathVolG);breathVolG.connect(nGain.gain);breathVol.start(t);
 
-  // Gentle high shimmer: very quiet, slower, lower notes — like distant chimes in space
-  const shimmer=ctx.createOscillator();shimmer.type='sine';shimmer.frequency.value=659;
+  // High shimmer: quiet high-pitched tones that twinkle randomly
+  const shimmer=ctx.createOscillator();shimmer.type='sine';shimmer.frequency.value=1318;
   const shimG=ctx.createGain();shimG.gain.value=0;
   shimmer.connect(shimG);shimG.connect(master);shimmer.start(t);
+  // Random twinkle scheduling
   let shimmerInt=setInterval(()=>{
     if(!soundEnabled)return;
     const now=ctx.currentTime;
-    const notes=[523,659,784,988,1047]; // C5,E5,G5,B5,C6 — gentle major
+    const notes=[1318,1568,1760,2093,2349]; // E6,G6,A6,C7,D7 — pentatonic
     shimmer.frequency.setValueAtTime(notes[Math.floor(Math.random()*notes.length)],now);
     shimG.gain.setValueAtTime(0,now);
-    shimG.gain.linearRampToValueAtTime(0.003+Math.random()*0.002,now+0.8);
-    shimG.gain.linearRampToValueAtTime(0,now+3+Math.random()*4);
-  },4000+Math.random()*6000);
+    shimG.gain.linearRampToValueAtTime(0.006+Math.random()*0.004,now+0.3);
+    shimG.gain.linearRampToValueAtTime(0,now+1.5+Math.random()*2);
+  },2000+Math.random()*3000);
 
-  // Very subtle sub-bass — barely felt more than heard
-  const sub=ctx.createOscillator();sub.type='sine';sub.frequency.value=40;
-  const subG=ctx.createGain();subG.gain.value=0.01;
-  const subLfo=ctx.createOscillator();subLfo.type='sine';subLfo.frequency.value=0.03;
-  const subLfoG=ctx.createGain();subLfoG.gain.value=0.005;
+  // Deep sub-bass pulse
+  const sub=ctx.createOscillator();sub.type='sine';sub.frequency.value=55;
+  const subG=ctx.createGain();subG.gain.value=0.015;
+  const subLfo=ctx.createOscillator();subLfo.type='sine';subLfo.frequency.value=0.06;
+  const subLfoG=ctx.createGain();subLfoG.gain.value=0.008;
   subLfo.connect(subLfoG);subLfoG.connect(subG.gain);
   sub.connect(subG);subG.connect(master);
   sub.start(t);subLfo.start(t);
@@ -212,24 +197,10 @@ function closeAbout(){document.getElementById('about-modal').style.display='none
 function copyTipAddress(btn){navigator.clipboard.writeText('innerserver135@walletofsatoshi').then(()=>{btn.textContent='Copied!';setTimeout(()=>{btn.textContent='Copy address'},1500)}).catch(()=>{btn.textContent='Copy failed'})}
 function chirp(f,d){if(!soundEnabled||!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.06,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+d);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+d)}
 function refreshChirp(){chirp(880,.15);setTimeout(()=>chirp(1100,.1),100)}
-function alertChirp(sp){const F={'TR-3B':400,Saucer:600,Orb:800,TicTac:1000,Cigar:500,Jellyfish:700,Boomerang:550};const f=F[sp]||700;chirp(f,.2);setTimeout(()=>chirp(f*1.25,.15),150);setTimeout(()=>chirp(f*1.5,.2),300)}
+function alertChirp(sp){const F={Goldfinch:1200,Bluebird:900,Robin:700,Hummingbird:1600,Owl:500,Sparrow:800,Canary:1400};const f=F[sp]||1000;chirp(f,.2);setTimeout(()=>chirp(f*1.25,.15),150);setTimeout(()=>chirp(f*1.5,.2),300)}
 
-function showShareModal(){document.getElementById('share-modal').style.display='block';document.getElementById('embed-preview').style.display='none'}
-function closeShareModal(){document.getElementById('share-modal').style.display='none'}
-async function shareAsScreenshot(){
-  try{const m=await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/+esm');const c=await m.default(scene,{backgroundColor:null,scale:2});c.toBlob(b=>{if(navigator.share&&navigator.canShare){const f=new File([b],'btc-uap.png',{type:'image/png'});navigator.share({files:[f],title:'BTC UAP'}).catch(()=>{})}else{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='btc-uap.png';a.click()}},  'image/png');closeShareModal()}catch(e){}}
-function shareLink(btn){
-  const url=window.location.href;
-  navigator.clipboard.writeText(url).then(()=>{btn.textContent='✓ Link Copied!';setTimeout(()=>{btn.textContent='🔗 Copy Link'},2000)}).catch(()=>{prompt('Copy this link:',url)})
-}
-function shareEmbed(btn){
-  const url=window.location.href;
-  const code='<iframe src="'+url+'" width="100%" height="500" style="border:none;border-radius:12px" allowfullscreen></iframe>';
-  const ep=document.getElementById('embed-preview');
-  document.getElementById('embed-code').textContent=code;
-  ep.style.display='block';
-  navigator.clipboard.writeText(code).then(()=>{btn.textContent='✓ Embed Copied!';setTimeout(()=>{btn.textContent='📋 Copy Embed Code'},2000)}).catch(()=>{})
-}
+async function shareScreenshot(btn){
+  try{const m=await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/+esm');const c=await m.default(scene,{backgroundColor:null,scale:2});c.toBlob(b=>{if(navigator.share&&navigator.canShare){const f=new File([b],'btc-birds.png',{type:'image/png'});navigator.share({files:[f],title:'BTC Cycle Birds'}).catch(()=>{})}else{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='btc-birds.png';a.click()}},  'image/png')}catch(e){btn.textContent='Saved!';setTimeout(()=>{btn.textContent='Share'},1500)}}
 
 let prevInd=null;
 
@@ -247,7 +218,7 @@ function calcIndicators(prices){
   const nuplVal=Math.max(0,Math.min(1,(nR+.25)/1));
   const tP=(cp/s200)-1,mF=(s7/s50)-1,rR=tP*.6+Math.max(0,mF)*.8;
   const reserveRisk=Math.max(0,Math.min(1,(rR+.15)/1));
-  const sopr=Math.max(0,Math.min(1,(s7/s30-.85)/.4));
+  const sopr=Math.max(0,Math.min(1,(s7/s30-.9)/.3));
   return{piCycle,mvrvZ,puell,rhodl,nuplVal,reserveRisk,sopr,currentPrice:cp};
 }
 
@@ -256,42 +227,20 @@ async function fetchBTCData(){
   catch(e){try{const r=await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=500');const d=await r.json();return{prices:d.map(k=>parseFloat(k[4]))}}catch(e2){return null}}
 }
 
-const SZ_BASE={TR3B:36,Saucer:57,Orb:28,TicTac:42,Cigar:115,Jellyfish:28,Boomerang:65};
-function getCraftScale(){return Math.min(1,window.innerWidth/1000,window.innerHeight/600)}
-function mkCraft(type){
-  const sc=getCraftScale();
-  const W=Math.round(SZ_BASE[type]*sc);
-  const lp=1.2+Math.random()*1.2;
-  const lp2=1.5+Math.random()*1;
-  const Y='#EEDD44';
-  const O='#FF8820';
-  const pc=Math.random(); // pearlescent color selector
-  const prl=pc<.33?'#ccddff':pc<.66?'#ffccee':'#ccffee'; // pearlescent flicker color
-  if(type==='TR3B'){
-    // Triangle: wide base left, apex right, clean diagonal edges
-    return`<svg viewBox="0 0 48 42" width="${W}" height="${Math.round(W*.88)}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;image-rendering:pixelated"><rect x="0" y="0" width="4" height="42" fill="#161628"/><rect x="4" y="2" width="4" height="38" fill="#181830"/><rect x="8" y="4" width="4" height="34" fill="#1a1a34"/><rect x="12" y="6" width="4" height="30" fill="#1c1c36"/><rect x="16" y="8" width="4" height="26" fill="#1e1e38"/><rect x="20" y="10" width="4" height="22" fill="#20203c"/><rect x="24" y="12" width="4" height="18" fill="#222240"/><rect x="28" y="14" width="4" height="14" fill="#242442"/><rect x="32" y="16" width="4" height="10" fill="#262645"/><rect x="36" y="18" width="4" height="6" fill="#282848"/><rect x="40" y="19" width="4" height="4" fill="#2a2a4a"/><rect x="44" y="20" width="4" height="2" fill="#2c2c4c"/><g style="animation:lightPulse ${lp}s ease-in-out infinite"><rect x="0" y="0" width="4" height="4" fill="${Y}"/><rect x="0" y="38" width="4" height="4" fill="${Y}"/><rect x="44" y="20" width="4" height="2" fill="${Y}"/></g><g style="animation:corePulse ${lp2}s ease-in-out infinite .2s"><rect x="12" y="16" width="10" height="10" fill="${Y}" opacity=".3"/><rect x="14" y="14" width="6" height="14" fill="${Y}" opacity=".3"/><rect x="16" y="18" width="4" height="6" fill="#fff" opacity=".4"/><rect x="14" y="20" width="6" height="2" fill="#fff" opacity=".4"/><rect x="16" y="20" width="2" height="2" fill="${O}"/></g></svg>`}
-  if(type==='Saucer'){
-    // Finer detail saucer
-    return`<svg viewBox="0 0 56 30" width="${W}" height="${Math.round(W*.54)}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;image-rendering:pixelated"><rect x="20" y="0" width="16" height="2" fill="#88aacc"/><rect x="16" y="2" width="24" height="2" fill="#99bbcc"/><rect x="12" y="4" width="32" height="2" fill="#aaccdd"/><rect x="8" y="6" width="40" height="2" fill="#bbddee"/><rect x="4" y="8" width="48" height="2" fill="#ccddef"/><rect x="2" y="10" width="52" height="2" fill="#aabbcc"/><rect x="0" y="12" width="56" height="2" fill="#8899aa"/><rect x="0" y="14" width="56" height="2" fill="#667788"/><g style="animation:lightPulse ${lp}s ease-in-out infinite"><rect x="8" y="14" width="2" height="2" fill="${Y}"/><rect x="18" y="14" width="2" height="2" fill="${Y}"/><rect x="28" y="14" width="2" height="2" fill="${Y}"/><rect x="36" y="14" width="2" height="2" fill="${Y}"/><rect x="46" y="14" width="2" height="2" fill="${Y}"/></g><rect x="8" y="16" width="40" height="2" fill="#556677"/><rect x="14" y="18" width="28" height="2" fill="#4a5a6a"/><g style="animation:corePulse ${lp2}s ease-in-out infinite"><rect x="20" y="20" width="16" height="2" fill="${O}" opacity=".5"/><rect x="24" y="22" width="8" height="2" fill="${O}" opacity=".3"/><rect x="26" y="24" width="4" height="2" fill="${O}" opacity=".15"/></g></svg>`}
-  if(type==='Orb'){
-    const fp=1+Math.random()*1.5;
-    const gd=2.5+Math.random()*3;
-    return`<svg viewBox="0 0 48 48" width="${W}" height="${W}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;image-rendering:pixelated"><g style="animation:lightPulse ${fp}s ease-in-out infinite"><rect x="22" y="0" width="4" height="6" fill="#FFF8E0" opacity=".4"/><rect x="22" y="6" width="4" height="8" fill="#FFF8E0" opacity=".65"/><rect x="22" y="34" width="4" height="8" fill="#FFF8E0" opacity=".65"/><rect x="22" y="42" width="4" height="6" fill="#FFF8E0" opacity=".4"/><rect x="0" y="22" width="6" height="4" fill="#FFF8E0" opacity=".4"/><rect x="6" y="22" width="8" height="4" fill="#FFF8E0" opacity=".65"/><rect x="34" y="22" width="8" height="4" fill="#FFF8E0" opacity=".65"/><rect x="42" y="22" width="6" height="4" fill="#FFF8E0" opacity=".4"/></g><g style="animation:glint ${gd}s ease-in-out infinite"><rect x="4" y="4" width="4" height="4" fill="#FFF8E0" opacity=".25"/><rect x="8" y="8" width="4" height="4" fill="#FFF8E0" opacity=".4"/><rect x="36" y="8" width="4" height="4" fill="#FFF8E0" opacity=".4"/><rect x="40" y="4" width="4" height="4" fill="#FFF8E0" opacity=".25"/><rect x="8" y="36" width="4" height="4" fill="#FFF8E0" opacity=".4"/><rect x="4" y="40" width="4" height="4" fill="#FFF8E0" opacity=".25"/><rect x="36" y="36" width="4" height="4" fill="#FFF8E0" opacity=".4"/><rect x="40" y="40" width="4" height="4" fill="#FFF8E0" opacity=".25"/></g><rect x="20" y="14" width="8" height="2" fill="#C09842" opacity=".5"/><rect x="18" y="16" width="12" height="2" fill="#D0A850" opacity=".7"/><rect x="16" y="18" width="16" height="2" fill="#D8B060"/><rect x="14" y="20" width="20" height="2" fill="#E0B860"/><rect x="16" y="20" width="12" height="2" fill="#F0D080"/><rect x="20" y="20" width="8" height="2" fill="#F8E8B0"/><rect x="22" y="20" width="4" height="2" fill="#FFFFF0"/><rect x="14" y="22" width="20" height="2" fill="#E0B860"/><rect x="16" y="22" width="12" height="2" fill="#F0D080"/><rect x="20" y="22" width="8" height="2" fill="#F8E8B0"/><rect x="22" y="22" width="4" height="2" fill="#FFFFF0"/><rect x="14" y="24" width="20" height="2" fill="#D8B058"/><rect x="16" y="26" width="16" height="2" fill="#D0A850" opacity=".7"/><rect x="18" y="28" width="12" height="2" fill="#D0A850" opacity=".5"/><rect x="20" y="30" width="8" height="2" fill="#C09842" opacity=".35"/><g style="animation:lightPulse ${fp*1.3}s ease-in-out infinite .5s"><rect x="18" y="24" width="4" height="2" fill="${prl}" opacity=".3"/></g></svg>`}
-  if(type==='TicTac'){
-    // Horizontal egg - smooth rounded ends
-    const fp=1.5+Math.random()*1.5;
-    return`<svg viewBox="0 0 44 24" width="${W}" height="${Math.round(W*.55)}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;image-rendering:pixelated"><rect x="16" y="0" width="12" height="2" fill="#c4c4d4"/><rect x="10" y="2" width="24" height="2" fill="#d0d0dc"/><rect x="6" y="4" width="32" height="2" fill="#dddde8"/><rect x="4" y="6" width="36" height="2" fill="#e4e4ee"/><rect x="2" y="8" width="40" height="2" fill="#eeeef4"/><rect x="2" y="10" width="40" height="2" fill="#eeeef4"/><rect x="4" y="8" width="14" height="2" fill="#f8f8ff"/><rect x="6" y="6" width="8" height="2" fill="#ffffff"/><g style="animation:lightPulse ${fp}s ease-in-out infinite"><rect x="24" y="8" width="4" height="2" fill="${prl}" opacity=".18"/></g><rect x="2" y="12" width="40" height="2" fill="#eeeef4"/><g style="animation:lightPulse ${fp*1.2}s ease-in-out infinite .5s"><rect x="12" y="12" width="4" height="2" fill="${prl}" opacity=".14"/></g><rect x="2" y="14" width="40" height="2" fill="#eaeaf0"/><rect x="4" y="16" width="36" height="2" fill="#e4e4ee"/><rect x="6" y="18" width="32" height="2" fill="#dddde8"/><rect x="10" y="20" width="24" height="2" fill="#d0d0dc"/><rect x="16" y="22" width="12" height="2" fill="#c4c4d4"/></svg>`}
-  if(type==='Cigar'){
-    // Cigar with centered lights
-    return`<svg viewBox="0 0 100 18" width="${W}" height="${Math.round(W*.18)}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;image-rendering:pixelated"><rect x="34" y="0" width="32" height="2" fill="#4a5565"/><rect x="20" y="2" width="60" height="2" fill="#556070"/><rect x="10" y="4" width="80" height="2" fill="#606878"/><rect x="4" y="6" width="92" height="2" fill="#667888"/><rect x="2" y="8" width="96" height="2" fill="#6a7888"/><rect x="4" y="10" width="92" height="2" fill="#606878"/><rect x="10" y="12" width="80" height="2" fill="#556070"/><rect x="20" y="14" width="60" height="2" fill="#4a5565"/><rect x="34" y="16" width="32" height="2" fill="#404a58"/><g style="animation:lightPulse ${lp}s ease-in-out infinite"><rect x="22" y="8" width="2" height="2" fill="${Y}" opacity=".8"/><rect x="36" y="8" width="2" height="2" fill="${Y}" opacity=".8"/><rect x="50" y="8" width="2" height="2" fill="${Y}" opacity=".8"/><rect x="62" y="8" width="2" height="2" fill="${Y}" opacity=".8"/><rect x="76" y="8" width="2" height="2" fill="${Y}" opacity=".8"/></g><g style="animation:corePulse ${lp2}s ease-in-out infinite"><rect x="40" y="14" width="20" height="2" fill="${Y}" opacity=".6"/><rect x="44" y="16" width="12" height="2" fill="${Y}" opacity=".4"/></g></svg>`}
-  if(type==='Jellyfish'){
-    const td=1.5+Math.random();
-    return`<svg viewBox="0 0 36 116" width="${W}" height="${Math.round(W*3.22)}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;image-rendering:pixelated"><rect x="14" y="0" width="8" height="2" fill="#4477aa"/><rect x="12" y="2" width="12" height="2" fill="#5588bb"/><rect x="8" y="4" width="20" height="2" fill="#6098c0"/><rect x="6" y="6" width="24" height="2" fill="#6ca0cc"/><rect x="4" y="8" width="28" height="2" fill="#70a8d0"/><rect x="4" y="10" width="28" height="2" fill="#78b0d4"/><rect x="4" y="12" width="28" height="2" fill="#80b8dd"/><rect x="4" y="14" width="28" height="2" fill="#88c0e4"/><rect x="4" y="16" width="28" height="2" fill="#90c8ee"/><rect x="8" y="6" width="14" height="2" fill="#a0d4ee"/><rect x="10" y="4" width="10" height="2" fill="#b8e0ff"/><rect x="12" y="2" width="6" height="2" fill="#d0eaff"/><rect x="6" y="18" width="24" height="2" fill="#80b8dd"/><rect x="8" y="20" width="20" height="2" fill="#6ca0cc"/><rect x="10" y="22" width="16" height="2" fill="#5588bb"/><g style="animation:tendril ${td}s ease-in-out infinite"><g style="animation:lightPulse ${lp}s ease-in-out infinite"><rect x="8" y="24" width="4" height="2" fill="#aad4ff" opacity=".7"/><rect x="16" y="24" width="4" height="2" fill="#aad4ff" opacity=".7"/><rect x="24" y="24" width="4" height="2" fill="#aad4ff" opacity=".7"/></g><rect x="6" y="26" width="2" height="2" fill="#90c8ff" opacity=".55"/><rect x="12" y="26" width="2" height="2" fill="#90c8ff" opacity=".55"/><rect x="18" y="26" width="2" height="2" fill="#90c8ff" opacity=".55"/><rect x="24" y="26" width="2" height="2" fill="#90c8ff" opacity=".55"/><rect x="30" y="26" width="2" height="2" fill="#90c8ff" opacity=".55"/><rect x="8" y="28" width="2" height="2" fill="#80bcff" opacity=".45"/><rect x="14" y="28" width="2" height="2" fill="#80bcff" opacity=".45"/><rect x="20" y="28" width="2" height="2" fill="#80bcff" opacity=".45"/><rect x="26" y="28" width="2" height="2" fill="#80bcff" opacity=".45"/><rect x="6" y="30" width="2" height="2" fill="#90c8ee" opacity=".38"/><rect x="12" y="30" width="2" height="2" fill="#90c8ee" opacity=".38"/><rect x="18" y="30" width="2" height="2" fill="#90c8ee" opacity=".38"/><rect x="24" y="30" width="2" height="2" fill="#90c8ee" opacity=".38"/><rect x="30" y="30" width="2" height="2" fill="#90c8ee" opacity=".38"/><rect x="8" y="32" width="2" height="2" fill="#80b8dd" opacity=".32"/><rect x="14" y="32" width="2" height="2" fill="#80b8dd" opacity=".32"/><rect x="20" y="32" width="2" height="2" fill="#80b8dd" opacity=".32"/><rect x="26" y="32" width="2" height="2" fill="#80b8dd" opacity=".32"/><rect x="10" y="34" width="2" height="2" fill="#6ca0cc" opacity=".26"/><rect x="16" y="34" width="2" height="2" fill="#6ca0cc" opacity=".26"/><rect x="22" y="34" width="2" height="2" fill="#6ca0cc" opacity=".26"/><rect x="6" y="36" width="2" height="2" fill="#6ca0cc" opacity=".22"/><rect x="12" y="36" width="2" height="2" fill="#5588bb" opacity=".22"/><rect x="18" y="36" width="2" height="2" fill="#5588bb" opacity=".22"/><rect x="24" y="36" width="2" height="2" fill="#5588bb" opacity=".22"/><rect x="30" y="36" width="2" height="2" fill="#6ca0cc" opacity=".22"/><rect x="8" y="38" width="2" height="2" fill="#5588bb" opacity=".18"/><rect x="14" y="38" width="2" height="2" fill="#5588bb" opacity=".18"/><rect x="20" y="38" width="2" height="2" fill="#5588bb" opacity=".18"/><rect x="26" y="38" width="2" height="2" fill="#5588bb" opacity=".18"/><rect x="10" y="40" width="2" height="2" fill="#4477aa" opacity=".15"/><rect x="16" y="40" width="2" height="2" fill="#4477aa" opacity=".15"/><rect x="22" y="40" width="2" height="2" fill="#4477aa" opacity=".15"/><rect x="12" y="42" width="2" height="2" fill="#4477aa" opacity=".12"/><rect x="18" y="42" width="2" height="2" fill="#4477aa" opacity=".12"/><rect x="24" y="42" width="2" height="2" fill="#4477aa" opacity=".12"/><rect x="8" y="44" width="2" height="2" fill="#3070aa" opacity=".1"/><rect x="14" y="44" width="2" height="2" fill="#3070aa" opacity=".1"/><rect x="20" y="44" width="2" height="2" fill="#3070aa" opacity=".1"/><rect x="26" y="44" width="2" height="2" fill="#3070aa" opacity=".1"/><rect x="10" y="46" width="2" height="2" fill="#3070aa" opacity=".08"/><rect x="16" y="46" width="2" height="2" fill="#3070aa" opacity=".08"/><rect x="22" y="46" width="2" height="2" fill="#3070aa" opacity=".08"/><rect x="12" y="48" width="2" height="2" fill="#285a99" opacity=".06"/><rect x="18" y="48" width="2" height="2" fill="#285a99" opacity=".06"/><rect x="24" y="48" width="2" height="2" fill="#285a99" opacity=".06"/><rect x="14" y="50" width="2" height="2" fill="#285a99" opacity=".05"/><rect x="20" y="50" width="2" height="2" fill="#285a99" opacity=".05"/><rect x="10" y="52" width="2" height="2" fill="#204488" opacity=".04"/><rect x="16" y="52" width="2" height="2" fill="#204488" opacity=".04"/><rect x="22" y="52" width="2" height="2" fill="#204488" opacity=".04"/><rect x="14" y="54" width="2" height="2" fill="#204488" opacity=".03"/><rect x="20" y="54" width="2" height="2" fill="#204488" opacity=".03"/><rect x="12" y="56" width="2" height="2" fill="#183877" opacity=".025"/><rect x="18" y="56" width="2" height="2" fill="#183877" opacity=".025"/><rect x="24" y="56" width="2" height="2" fill="#183877" opacity=".025"/><rect x="16" y="58" width="2" height="2" fill="#183877" opacity=".02"/><rect x="22" y="58" width="2" height="2" fill="#183877" opacity=".02"/><rect x="14" y="60" width="2" height="2" fill="#183877" opacity=".015"/><rect x="20" y="60" width="2" height="2" fill="#183877" opacity=".015"/><rect x="18" y="62" width="2" height="2" fill="#183877" opacity=".01"/><rect x="16" y="64" width="2" height="2" fill="#102844" opacity=".008"/><rect x="20" y="66" width="2" height="2" fill="#102844" opacity=".005"/></g></svg>`}
-  if(type==='Boomerang'){
-    // Manta side profile - thin wide craft, slight curve on top, flat bottom
-    return`<svg viewBox="0 0 52 16" width="${W}" height="${Math.round(W*.31)}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;image-rendering:pixelated"><rect x="20" y="2" width="12" height="2" fill="#1e1e38"/><rect x="14" y="4" width="24" height="2" fill="#242444"/><rect x="8" y="6" width="36" height="2" fill="#2a2a4c"/><rect x="4" y="8" width="44" height="2" fill="#2e2e50"/><rect x="0" y="10" width="52" height="2" fill="#303052"/><rect x="6" y="12" width="40" height="2" fill="#282848"/><rect x="16" y="14" width="20" height="2" fill="#222240"/><g style="animation:lightPulse ${lp}s ease-in-out infinite"><rect x="0" y="10" width="2" height="2" fill="${Y}" opacity=".7"/><rect x="50" y="10" width="2" height="2" fill="${Y}" opacity=".7"/></g><g style="animation:lightPulse ${lp*1.3}s ease-in-out infinite .4s"><rect x="12" y="8" width="2" height="2" fill="${Y}" opacity=".5"/><rect x="38" y="8" width="2" height="2" fill="${Y}" opacity=".5"/></g><g style="animation:corePulse ${lp2}s ease-in-out infinite"><rect x="22" y="10" width="8" height="2" fill="${Y}" opacity=".5"/><rect x="24" y="12" width="4" height="2" fill="${Y}" opacity=".35"/></g></svg>`}
-  return'';
-}
+const SZ_BASE={Hummingbird:30,Canary:38,Goldfinch:38,Sparrow:39,Robin:41,Bluebird:42,Owl:51};
+function getBirdScale(){return Math.min(1,window.innerWidth/1000,window.innerHeight/600)}
+function mkB(p){const sc=getBirdScale();const{body,belly,accent,wing,tail,cheek,species}=p,fp=species==='Hummingbird'?.1:species==='Owl'?.42:.26+Math.random()*.08,bd=3.5+Math.random()*3,bl=Math.random()*3,W=Math.round(SZ_BASE[species]*sc),H=Math.round(W*.875);let x='';
+if(species==='Owl')x+=`<polygon points="17,6 19.5,0 22,7" fill="${accent}"/><polygon points="28,6 26,0 24,7" fill="${accent}"/><circle cx="28.5" cy="12.5" r="6.5" fill="none" stroke="${accent}" stroke-width="1.5"/>`;
+if(species==='Robin')x+=`<ellipse cx="19" cy="22" rx="8" ry="6.5" fill="#D45030"/>`;
+if(species==='Goldfinch')x+=`<line x1="21" y1="6" x2="19" y2="0" stroke="${accent}" stroke-width="1.5" stroke-linecap="round"/><circle cx="19" cy="-.5" r="1.2" fill="${body}"/><line x1="24" y1="5.5" x2="26" y2="0" stroke="${accent}" stroke-width="1.5" stroke-linecap="round"/><circle cx="26" cy="-.5" r="1.2" fill="${body}"/>`;
+if(species==='Bluebird')x+=`<line x1="20" y1="6" x2="18.5" y2="0" stroke="${accent}" stroke-width="1.8" stroke-linecap="round"/><circle cx="18.5" cy="-.5" r="1.3" fill="${accent}"/><line x1="23" y1="5" x2="23" y2="-1.5" stroke="${accent}" stroke-width="1.8" stroke-linecap="round"/><circle cx="23" cy="-2" r="1.3" fill="${accent}"/><line x1="26" y1="6" x2="27.5" y2="0" stroke="${accent}" stroke-width="1.8" stroke-linecap="round"/><circle cx="27.5" cy="-.5" r="1.3" fill="${accent}"/>`;
+if(species==='Canary')x+=`<line x1="20" y1="6" x2="18" y2="-.5" stroke="#C8B430" stroke-width="1.5" stroke-linecap="round"/><circle cx="18" cy="-1" r="1.1" fill="#E8D44B"/><line x1="23" y1="5" x2="23" y2="-2" stroke="#C8B430" stroke-width="1.5" stroke-linecap="round"/><circle cx="23" cy="-2.5" r="1.1" fill="#E8D44B"/><line x1="26" y1="6" x2="28" y2="-.5" stroke="#C8B430" stroke-width="1.5" stroke-linecap="round"/><circle cx="28" cy="-1" r="1.1" fill="#E8D44B"/>`;
+if(species==='Sparrow')x+=`<line x1="21" y1="6" x2="20" y2="0" stroke="${accent}" stroke-width="1.5" stroke-linecap="round"/><line x1="25" y1="6" x2="26" y2="0" stroke="${accent}" stroke-width="1.5" stroke-linecap="round"/>`;
+if(species==='Hummingbird')x+=`<ellipse cx="23" cy="8" rx="4.5" ry="2.8" fill="#D040D0"/><ellipse cx="26" cy="9" rx="3.2" ry="2" fill="#40B0D0"/>`;
+let bk;if(species==='Hummingbird')bk=`<polygon points="32,14 48,15.5 32,17" fill="#2a2a2a"/>`;else if(species==='Owl')bk=`<path d="M32,13 Q35,13.5 35.5,15.5 Q35.5,18 32.5,18.5 Q31,17 31,15 Q31,13.5 32,13Z" fill="#8878A0"/><path d="M33.5,15 Q34.5,16.2 33.5,17.5" fill="none" stroke="#6860A0" stroke-width=".7" stroke-linecap="round"/>`;else if(species==='Goldfinch')bk=`<polygon points="32,13.5 41,15.5 32,17.8" fill="#E0A030"/><line x1="32.3" y1="15.8" x2="40.5" y2="15.8" stroke="#C88820" stroke-width=".6"/>`;else bk=`<polygon points="32,14 40,15.7 32,17.5" fill="#F0A030"/><line x1="32.3" y1="15.8" x2="39.5" y2="16" stroke="#D08020" stroke-width=".5"/>`;
+const isOwl=species==='Owl';const eyeRx=isOwl?4.8:3.5,eyeRy=isOwl?4.5:3.3,pupilR=isOwl?3:2.2,sparkR=isOwl?1.2:.85,spark2R=isOwl?.6:.45;
+const dg1=1.2+Math.random()*.8,dg2=1.4+Math.random()*.8;
+return`<svg viewBox="-3 -5 52 46" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible"><path d="M5,20 Q-1,16 -3,13 Q-1,18 2,20Z" fill="${tail}"/><path d="M5,21 Q-1,23 -3,27 Q0,23 3,21Z" fill="${tail}"/><g style="transform-origin:16px 16px;animation:flapA ${fp}s ease-in-out infinite"><ellipse cx="17" cy="9" rx="14" ry="7.5" fill="${wing}" transform="rotate(-12 17 9)"/><ellipse cx="21" cy="7" rx="7" ry="4" fill="${accent}" transform="rotate(-12 21 7)" opacity=".5"/></g><ellipse cx="17" cy="21" rx="13" ry="11" fill="${body}"/><ellipse cx="17" cy="21" rx="13" ry="11" fill="none" stroke="${accent}" stroke-width=".7"/><ellipse cx="19.5" cy="24" rx="8.5" ry="7" fill="${belly}"/><g style="transform-origin:15px 29px;animation:dangle ${dg1}s ease-in-out infinite"><path d="M15,29 Q10,30 7,32" fill="none" stroke="${accent}" stroke-width=".9" stroke-linecap="round"/><path d="M7,32 Q5,33 3.5,32.5" fill="none" stroke="${accent}" stroke-width=".6" stroke-linecap="round"/><path d="M7,32 Q5.5,34 4,33.5" fill="none" stroke="${accent}" stroke-width=".6" stroke-linecap="round"/><path d="M7,32 Q6,35 4.5,34.8" fill="none" stroke="${accent}" stroke-width=".6" stroke-linecap="round"/></g><g style="transform-origin:19px 29.5px;animation:dangle ${dg2}s ease-in-out infinite .3s"><path d="M19,29.5 Q14,31 11,33.5" fill="none" stroke="${accent}" stroke-width=".9" stroke-linecap="round"/><path d="M11,33.5 Q9,34.5 7.5,34" fill="none" stroke="${accent}" stroke-width=".6" stroke-linecap="round"/><path d="M11,33.5 Q9.5,35.5 8,35.2" fill="none" stroke="${accent}" stroke-width=".6" stroke-linecap="round"/><path d="M11,33.5 Q10,36.5 8.5,36.5" fill="none" stroke="${accent}" stroke-width=".6" stroke-linecap="round"/></g>${x}<circle cx="25" cy="13" r="8.5" fill="${body}"/><circle cx="25" cy="13" r="8.5" fill="none" stroke="${accent}" stroke-width=".7"/><ellipse cx="28.5" cy="16.5" rx="3" ry="2" fill="${cheek}" opacity=".45"/><g style="transform-origin:28.5px 12px;animation:blinker ${bd}s ease-in-out infinite ${bl}s"><ellipse cx="28.5" cy="12" rx="${eyeRx}" ry="${eyeRy}" fill="#fff"/><ellipse cx="28.5" cy="12" rx="${eyeRx}" ry="${eyeRy}" fill="none" stroke="${accent}" stroke-width=".5"/><circle cx="${28.5+eyeRx*.12}" cy="12" r="${pupilR}" fill="#222"/><circle cx="${28.5+eyeRx*.35}" cy="${12-eyeRy*.3}" r="${sparkR}" fill="#fff"/><circle cx="${28.5-eyeRx*.15}" cy="${12+eyeRy*.25}" r="${spark2R}" fill="#fff"/></g>${bk}</svg>`}
 
 function sigTxt(v){return v>.8?'Extreme — sell zone':v>.6?'Overheated':v>.4?'Neutral':v>.2?'Undervalued':'Extreme — buy zone'}
 function cyclePhase(a){return a>.75?'Euphoria / blow-off top':a>.6?'Late bull — caution':a>.45?'Mid-cycle expansion':a>.3?'Early bull / recovery':a>.15?'Accumulation zone':'Deep bear / capitulation'}
@@ -299,13 +248,13 @@ function arrow(c,p){if(p==null)return'';const d=c-p;return d>.01?' <span style="
 
 function buildScene(ind){
   const IN=[
-    {nm:'Pi cycle top',sp:'TR-3B',v:ind.piCycle,k:'piCycle',d:'111DMA vs 350DMA×2 crossover. Called tops within 3 days.',c:'#3a3a55',mk:()=>mkCraft('TR3B')},
-    {nm:'MVRV Z-score',sp:'Saucer',v:ind.mvrvZ,k:'mvrvZ',d:'Market vs realized value. >7=top, <0=bottom.',c:'#aaccdd',mk:()=>mkCraft('Saucer')},
-    {nm:'Puell multiple',sp:'Orb',v:ind.puell,k:'puell',d:'Miner daily revenue vs 365d avg. High=top signal.',c:'#ffee99',mk:()=>mkCraft('Orb')},
-    {nm:'RHODL ratio',sp:'Tic Tac',v:ind.rhodl,k:'rhodl',d:'1wk vs 1-2yr realized cap. High=speculative top.',c:'#dddde8',mk:()=>mkCraft('TicTac')},
-    {nm:'NUPL',sp:'Octagon',v:ind.nuplVal,k:'nuplVal',d:'Net unrealized profit/loss. >0.75=euphoria. <0=capitulation.',c:'#444460',mk:()=>mkCraft('Boomerang')},
-    {nm:'Reserve risk',sp:'Jellyfish',v:ind.reserveRisk,k:'reserveRisk',d:'Confidence vs price. Low=accumulation zone.',c:'#88bbdd',mk:()=>mkCraft('Jellyfish')},
-    {nm:'SOPR',sp:'Cigar',v:ind.sopr,k:'sopr',d:'Spent output profit ratio. >1=profit taking. <1=bottom.',c:'#778898',mk:()=>mkCraft('Cigar')}];
+    {nm:'Pi cycle top',sp:'Goldfinch',v:ind.piCycle,k:'piCycle',d:'111DMA vs 350DMA×2 crossover. Called tops within 3 days.',c:'#E8A838',mk:()=>mkB({body:'#E8A838',belly:'#FFF3D6',accent:'#C48820',wing:'#D4941E',tail:'#C48820',cheek:'#FFCB70',species:'Goldfinch'})},
+    {nm:'MVRV Z-score',sp:'Bluebird',v:ind.mvrvZ,k:'mvrvZ',d:'Market vs realized value. >7=top, <0=bottom.',c:'#5BA8D4',mk:()=>mkB({body:'#5BA8D4',belly:'#D6EEFF',accent:'#3A80B0',wing:'#3A7BAA',tail:'#2A6090',cheek:'#90C8E8',species:'Bluebird'})},
+    {nm:'Puell multiple',sp:'Robin',v:ind.puell,k:'puell',d:'Miner daily revenue vs 365d avg. High=top signal.',c:'#D45030',mk:()=>mkB({body:'#8B6B5B',belly:'#FFE8D6',accent:'#6B4B3B',wing:'#6B4B3B',tail:'#5B3B2B',cheek:'#FFB8A0',species:'Robin'})},
+    {nm:'RHODL ratio',sp:'Hummingbird',v:ind.rhodl,k:'rhodl',d:'1wk vs 1-2yr realized cap. High=speculative top.',c:'#50B868',mk:()=>mkB({body:'#50B868',belly:'#E0FFE8',accent:'#308848',wing:'#308848',tail:'#206838',cheek:'#A0E8B0',species:'Hummingbird'})},
+    {nm:'NUPL',sp:'Owl',v:ind.nuplVal,k:'nuplVal',d:'Net unrealized profit/loss. >0.75=euphoria. <0=capitulation.',c:'#9098A8',mk:()=>mkB({body:'#9098A8',belly:'#E8EAF0',accent:'#687080',wing:'#687080',tail:'#586070',cheek:'#C0C8D8',species:'Owl'})},
+    {nm:'Reserve risk',sp:'Sparrow',v:ind.reserveRisk,k:'reserveRisk',d:'Confidence vs price. Low=accumulation zone.',c:'#C49070',mk:()=>mkB({body:'#C49070',belly:'#FFF0E0',accent:'#9A6848',wing:'#9A6848',tail:'#7A4830',cheek:'#E8C8A8',species:'Sparrow'})},
+    {nm:'SOPR',sp:'Canary',v:ind.sopr,k:'sopr',d:'Spent output profit ratio. >1=profit taking. <1=bottom.',c:'#E8D44B',mk:()=>mkB({body:'#E8D44B',belly:'#FFFDE6',accent:'#C8B430',wing:'#C8B430',tail:'#A89420',cheek:'#F8E878',species:'Canary'})}];
 
   const avg=IN.reduce((s,n)=>s+n.v,0)/7;
   aggregateEl.textContent=`Cycle: ${cyclePhase(avg)} (${Math.round(avg*100)}%)`;
@@ -355,7 +304,7 @@ function buildScene(ind){
       birdsLayer.appendChild(w)}});
   });
   starsLayer.innerHTML='';for(let i=0;i<80;i++){const s=document.createElement('div');const z=1+Math.random()*2;s.style.cssText=`position:absolute;width:${z}px;height:${z}px;border-radius:50%;background:#fff;top:${Math.random()*45}%;left:${Math.random()*100}%;animation:twinkle ${2+Math.random()*3}s ease-in-out infinite ${Math.random()*3}s`;starsLayer.appendChild(s)}
-  if(!isResizeRebuild){prevInd={...ind};}
+  prevInd={...ind};
   currentInd=ind;
 }
 
@@ -444,10 +393,10 @@ function updateSky(){
 
 updateSky();setInterval(updateSky,10000);
 
-function updateBirdZone(){const l=document.getElementById('leg'),lo=document.getElementById('low-label'),dl=document.getElementById('desc-label'),hi=document.getElementById('high-label'),upd=document.getElementById('updated');if(!l||!scene)return;const h=scene.clientHeight,lr=l.getBoundingClientRect(),sr=scene.getBoundingClientRect(),lt=lr.top-sr.top;const btm=(h-lt+10)+'px';if(dl)dl.style.bottom=btm;const fY=lt-40;let cY=32;if(upd&&upd.textContent){const updR=upd.getBoundingClientRect();cY=updR.bottom-sr.top+8}if(hi)hi.style.top=cY+'px';const bPct=Math.min(90,(fY/h)*100);if(lo){lo.style.bottom='auto';lo.style.top='calc('+bPct+'% - 14px)'}window._birdTopPct=Math.max(2,((cY+16)/h)*100);window._birdBottomPct=bPct}
+function updateBirdZone(){const l=document.getElementById('leg'),lo=document.getElementById('low-label'),dl=document.getElementById('desc-label');if(!l||!scene)return;const h=scene.clientHeight,lr=l.getBoundingClientRect(),sr=scene.getBoundingClientRect(),lt=lr.top-sr.top;const btm=(h-lt+10)+'px';if(lo)lo.style.bottom=btm;if(dl)dl.style.bottom=btm;const fY=lt-40,cY=32;window._birdTopPct=Math.max(2,(cY/h)*100);window._birdBottomPct=Math.min(90,(fY/h)*100)}
 updateBirdZone();setInterval(updateBirdZone,1000);
-let currentInd=null;let isResizeRebuild=false;
-window.addEventListener('resize',()=>{updateBirdZone();requestAnimationFrame(updateBirdZone);clearTimeout(window._resizeTimer);window._resizeTimer=setTimeout(()=>{if(currentInd){isResizeRebuild=true;buildScene(currentInd);isResizeRebuild=false}},300)});
+let currentInd=null;
+window.addEventListener('resize',()=>{updateBirdZone();requestAnimationFrame(updateBirdZone);clearTimeout(window._resizeTimer);window._resizeTimer=setTimeout(()=>{if(currentInd)buildScene(currentInd)},300)});
 
 async function init(){
   const data=await fetchBTCData();loadingEl.style.display='none';
