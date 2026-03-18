@@ -107,7 +107,7 @@ body{background:#111;display:flex;justify-content:center;align-items:stretch;hei
 <div id="aggregate" style="font:11px 'Inter',sans-serif;color:rgba(255,255,255,.35);margin-top:3px"></div>
 <div id="updated" style="font:9px 'Inter',sans-serif;color:rgba(255,255,255,.2);margin-top:2px"></div>
 </div>
-<div id="leg" style="position:absolute;bottom:10px;left:10px;right:10px;font:11px 'Inter',sans-serif;color:rgba(255,255,255,.9);background:rgba(0,0,0,.35);padding:8px 14px;border-radius:10px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:20;border:1px solid rgba(255,255,255,.08);transition:all .35s ease;overflow:hidden;cursor:default">
+<div id="leg" style="position:absolute;bottom:10px;left:10px;right:10px;font:11px 'Inter',sans-serif;color:rgba(255,255,255,.9);background:rgba(0,0,0,.35);padding:8px 14px;border-radius:10px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:22;border:1px solid rgba(255,255,255,.08);transition:all .35s ease;overflow:hidden;cursor:default">
 <div id="leg-compact" style="display:flex;flex-wrap:wrap;gap:6px 14px;transition:opacity .2s ease"></div>
 <div id="leg-detail" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 12px;max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease .05s,margin .3s ease"></div>
 </div>
@@ -489,7 +489,7 @@ function updateSky(){
 
 updateSky();setInterval(updateSky,10000);
 
-function updateBirdZone(){const l=document.getElementById('leg'),lo=document.getElementById('low-label'),dl=document.getElementById('desc-label'),hi=document.getElementById('high-label'),upd=document.getElementById('updated');if(!l||!scene)return;const h=scene.clientHeight,lr=l.getBoundingClientRect(),sr=scene.getBoundingClientRect(),lt=lr.top-sr.top;const btm=(h-lt+10)+'px';if(dl)dl.style.bottom=btm;const fY=lt-40;let cY=32;if(upd&&upd.textContent){const updR=upd.getBoundingClientRect();cY=updR.bottom-sr.top+8}if(hi)hi.style.top=cY+'px';const bPct=Math.min(90,(fY/h)*100);if(lo){lo.style.bottom='auto';lo.style.top='calc('+bPct+'% - 14px)'}window._birdTopPct=Math.max(2,((cY+16)/h)*100);window._birdBottomPct=bPct}
+function updateBirdZone(){const l=document.getElementById('leg'),lo=document.getElementById('low-label'),dl=document.getElementById('desc-label'),hi=document.getElementById('high-label'),upd=document.getElementById('updated');if(!l||!scene)return;const h=scene.clientHeight,sr=scene.getBoundingClientRect();if(dl)dl.style.bottom='46px';const fY=h-80;let cY=32;if(upd&&upd.textContent){const updR=upd.getBoundingClientRect();cY=updR.bottom-sr.top+8}if(hi)hi.style.top=cY+'px';const bPct=Math.min(90,(fY/h)*100);if(lo){lo.style.bottom='auto';lo.style.top='calc('+bPct+'% - 14px)'}window._birdTopPct=Math.max(2,((cY+16)/h)*100);window._birdBottomPct=bPct}
 updateBirdZone();setInterval(updateBirdZone,1000);
 let currentInd=null;let isResizeRebuild=false;
 window.addEventListener('resize',()=>{updateBirdZone();requestAnimationFrame(updateBirdZone);clearTimeout(window._resizeTimer);window._resizeTimer=setTimeout(()=>{if(currentInd){isResizeRebuild=true;buildScene(currentInd);isResizeRebuild=false}},300)});
